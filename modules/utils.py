@@ -40,14 +40,14 @@ def outputdir_make_and_add(outputdir, title=None):
     return outputdir
 
 
-def evaluate(envs, agent, deterministic=True):
+def evaluate(envs, agent, deterministic=False):
     with torch.no_grad():
         num_envs = envs.unwrapped.num_envs
         rewards = np.zeros((num_envs,))
         dones = np.zeros((num_envs,)).astype(bool)
         s, _ = envs.reset(seed=range(num_envs))
         while not all(dones):
-            a, _ = agent.act(s, deterministic=deterministic)
+            a = agent.act(s, deterministic=deterministic)
             a = a.cpu().detach().numpy()
             s_, r, terminated, truncated, _ = envs.step(a)
             done = terminated | truncated
@@ -77,7 +77,7 @@ def train_loop(agent, args, buffer, train_envs, test_envs, logger):
     episode = 0
     s, _ = train_envs.reset(seed=args.seed)
     for t in range(args.steps+1):
-        a, _ = agent.act(s)
+        a = agent.act(s)
         assert torch.any(torch.isnan(a)) == False
         a = a.cpu().detach().numpy()
         s_, r, terminated, truncated, _ = train_envs.step(a)
@@ -88,12 +88,11 @@ def train_loop(agent, args, buffer, train_envs, test_envs, logger):
         s = s_
 
         if t % args.eval_every == 0:
-            test_rewards = evaluate(test_envs, agent, deterministic=args.actor_deterministic)
+            test_rewards = evaluate(test_envs, agent)
             # print(f'test reward: {test_rewards}')
             if test_rewards > best_test_rewards:
                 best_test_rewards = test_rewards
-                agent.save(path=os.path.join(args.save_path, 'test_rewards.tar'), best_return=best_test_rewards)
-                torch.save(agent.critic1, os.path.join(args.save_path, 'test_rewards.pt'))
+                torch.save(agent.actor, os.path.join(args.save_path, 'actor.pt'))
                 print(f"save agent to: {args.save_path} with best return {best_test_rewards} at step {t}")
             log({
                 **result,
