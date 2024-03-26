@@ -23,13 +23,10 @@ class StochasticNNPolicy(nn.Module):
 
     def forward(
         self, 
-        obs, 
-        n_action_samples=1
+        obs,
     ):
         obs = torch.as_tensor(obs, dtype=torch.float32, device=self.device)
-        obs = obs[:, None, :].repeat(1, n_action_samples, 1)
-        noise = torch.randn((obs.shape[0], n_action_samples, self.action_sizes))
-        input = torch.cat([obs, noise], dim=-1).reshape(-1, self.state_sizes + self.action_sizes)
+        noise = torch.randn((obs.shape[0], self.action_sizes), device=self.device)
+        input = torch.cat([obs, noise], dim=1)
         act = torch.tanh(self.net(input))
-        act = act.reshape(obs.shape[0], n_action_samples, self.action_sizes)
         return act
