@@ -8,14 +8,14 @@ def RBF_kernel(X, Y, h_min=1e-3):
     dist_sq = diff.pow(2).sum(-1, keepdim=True) # shape = (N, Kx, Ky, 1)
 
     # Apply the median heuristic (PyTorch does not give true median)
-    median_sq = torch.quantile(dist_sq.reshape(N, -1), q=0.5, dim=1)
-    h = median_sq / (2*np.log(N) + 1)
-    h = torch.max(h, torch.tensor(h_min)) 
-    h = h.detach().reshape(N, 1, 1, 1) # shape = (N, 1, 1, 1)
+    median_sq = torch.quantile(dist_sq.reshape(N, Kx*Ky), q=0.5, dim=1)
+    sigma_sq = median_sq / (2 * np.log(N + 1))
+    sigma_sq = sigma_sq.detach().reshape(N, 1, 1, 1) # shape = (N, 1, 1, 1)  
 
     # calculate kappa and kappa_grad for sql
-    kappa = (-dist_sq / h).exp() # shape = (N, Kx, Ky, 1)
-    kappa_grad = -2. * (diff / h) * kappa # shape = (N, Kx, Ky, D)
+    gamma = 1.0 / (1e-8 + 2 * sigma_sq)
+    kappa = (-gamma * dist_sq).exp() # shape = (N, Kx, Ky, 1)
+    kappa_grad = -2. * (gamma* diff) * kappa # shape = (N, Kx, Ky, D)
 
     return kappa, kappa_grad
 
