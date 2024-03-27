@@ -1,5 +1,6 @@
 defaults:
   - _self_
+  - config: MultiGoal-v0
   - override hydra/hydra_logging: disabled  
   - override hydra/job_logging: disabled
 
@@ -21,7 +22,7 @@ buffer_size: 1000000
 warmup_steps: 5000
 eval_every: 1000
 steps: 1000000
-batch_size: 128
+batch_size: 256
 test_num: 10
 wandb: 0
 device: cuda
@@ -29,7 +30,6 @@ device: cuda
 # (Actor Critic) ----
 actor_lr: !!float 3e-4
 critic_lr: !!float 3e-4
-# ----
 hidden_sizes: 128
 hidden_layers: 2
 n_particles: 16

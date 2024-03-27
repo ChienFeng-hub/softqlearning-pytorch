@@ -1,0 +1,2 @@
+env: Humanoid-v4
+reward_scale: 100
