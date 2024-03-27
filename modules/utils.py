@@ -89,7 +89,7 @@ def train_loop(agent, args, buffer, train_envs, test_envs, logger):
 
         if t % args.eval_every == 0:
             test_rewards = evaluate(test_envs, agent)
-            # print(f'test reward: {test_rewards}')
+            print(f'test reward: {test_rewards} at step {t}')
             if test_rewards > best_test_rewards:
                 best_test_rewards = test_rewards
                 torch.save(agent.actor, os.path.join(args.save_path, 'actor.pt'))
