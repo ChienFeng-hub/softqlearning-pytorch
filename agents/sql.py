@@ -106,7 +106,6 @@ class SQL():
 
     def update_actor(self, batch):
         (s, a, r, s_n, d) = batch
-        batch_sizes = s.shape[0]
 
         # According to haarnoja/softqlearning:
         # SVGD requires computing two empirical expectations over actions
@@ -114,26 +113,25 @@ class SQL():
         # actions, and later split them into two sets: `fixed_actions` are used
         # to evaluate the expectation indexed by `j` and `updated_actions`
         # the expectation indexed by `i`.
-        s_repeat = s[:, None, :].repeat(1, self.n_particles, 1).reshape(batch_sizes*self.n_particles, self.state_sizes)
-        fixed_actions = self.act(s=s_repeat).detach()
-        fixed_actions.requires_grad_()
+        s_repeat = s[:, None, :].repeat(1, self.n_particles, 1).reshape(-1, self.state_sizes)
+        updated_actions = self.act(s=s_repeat).reshape(-1, self.n_particles, self.action_sizes)
+        fixed_actions = self.act(s=s_repeat).reshape(-1, self.n_particles, self.action_sizes)
+        fixed_actions.detach().requires_grad_()
 
         # get svgd target
-        current_q1 = self.critic1(s_repeat, fixed_actions)
-        current_q2 = self.critic2(s_repeat, fixed_actions)
+        current_q1 = self.critic1(s_repeat, fixed_actions.reshape(-1, self.action_sizes))
+        current_q2 = self.critic2(s_repeat, fixed_actions.reshape(-1, self.action_sizes))
         current_q = torch.min(current_q1, current_q2)
-        current_q = current_q.reshape(batch_sizes, self.n_particles).mean(-1)
+        current_q = current_q.reshape(-1, self.n_particles)
 
-        # # Target log-density. Q_soft in Equation 13:
-        # squash_correction = torch.sum(torch.log(1 - fixed_actions.pow(2) + self.eps), dim=-1)
-        # log_p = current_q + squash_correction
+        # Target log-density. Q_soft in Equation 13:
+        squash_correction = torch.sum(torch.log(1 - fixed_actions.pow(2) + self.eps), dim=-1)
+        log_p = current_q + squash_correction
 
-        grad_log_p = torch.autograd.grad((current_q*self.n_particles).sum(), fixed_actions)[0]
+        grad_log_p = torch.autograd.grad(log_p.sum(), fixed_actions)[0]
         grad_log_p = grad_log_p.reshape(-1, self.n_particles, 1, self.action_sizes).detach() # (N, n_particles, 1, action_sizes)
         grad_log_p.detach_()
 
-        fixed_actions = fixed_actions.reshape(batch_sizes, self.n_particles, self.action_sizes)
-        updated_actions = self.act(s=s_repeat).reshape(batch_sizes, self.n_particles, self.action_sizes)
         kappa, kappa_grad = RBF_kernel(fixed_actions, updated_actions)
 
         # Stein Variational Gradient in Equation 13:
