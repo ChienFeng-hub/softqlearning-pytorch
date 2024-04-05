@@ -20,4 +20,5 @@ python train.py
 
 ## Results
 
-![alt text](https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/ant_sql.png)
+![image alt <](https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/ant_sql.png)
+![image alt >]([https](https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/humanoid_sql.png))
