@@ -19,7 +19,7 @@ python train.py
 ```
 
 ## Results
-![](https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/ant_sql.png) ![](https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/humanoid_sql.png)
+![](https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/ant_sql.png){width=50%} ![](https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/humanoid_sql.png){width=50%}
 
 <!-- <div>
     
