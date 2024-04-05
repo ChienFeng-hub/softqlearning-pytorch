@@ -18,16 +18,11 @@ conda env create -f environment.yml
 python train.py
 ```
 
-## Results
-![](https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/ant_sql.png){width=50%} ![](https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/humanoid_sql.png){width=50%}
-
-<!-- <div>
-    
-<img align="left" width="150" height="150" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/ant_sql.png">
+## Results 
+<img align="left" width=auto height=auto src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/ant_sql.png">
                                                 
-<img align="right" width="150" height="150" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/humanoid_sql.png">
-    
-</div>
+<img align="right" width=auto height=auto src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/humanoid_sql.png">
+
 <div>
     
 <img align="left" width="100" height="100" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/hopper_sql.png">
@@ -36,6 +31,6 @@ python train.py
                                                 
 <img align="right" width="100" height="100" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/walker2d_sql.png">
     
-</div> -->
+</div>
 
 
