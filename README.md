@@ -19,14 +19,21 @@ python train.py
 ```
 
 ## Results
+<div>
+    
 <img align="left" width="150" height="150" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/ant_sql.png">
                                                 
 <img align="right" width="150" height="150" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/humanoid_sql.png">
-
-<br />
-
+    
+</div>
+<div>
+    
 <img align="left" width="100" height="100" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/hopper_sql.png">
 
 <img align="center" width="100" height="100" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/halfcheetah_sql.png">
                                                 
 <img align="right" width="100" height="100" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/walker2d_sql.png">
+    
+</div>
+
+
