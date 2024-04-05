@@ -18,19 +18,21 @@ conda env create -f environment.yml
 python train.py
 ```
 
-## Results 
-<img align="left" width=auto height=auto src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/ant_sql.png">
-                                                
-<img align="right" width=auto height=auto src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/humanoid_sql.png">
+## Results
+### Multi-goal
+<p align="center">
+  <img src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/multigoal_sql.png">                                      
+</p>
 
-<div>
-    
-<img align="left" width="100" height="100" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/hopper_sql.png">
-
-<img align="center" width="100" height="100" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/halfcheetah_sql.png">
-                                                
-<img align="right" width="100" height="100" src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/walker2d_sql.png">
-    
-</div>
+### MuJoCo
+<p>
+  <img width=49% src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/halfcheetah_sql.png">                                      
+  <img width=49% src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/hopper_sql.png">
+</p>
+<p>
+  <img width=33% src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/ant_sql.png">                                      
+  <img width=33% src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/walker2d_sql.png">
+  <img width=33% src="https://github.com/ChienFeng-hub/softqlearning-pytorch/blob/main/figures/humanoid_sql.png">
+</p>
 
 
