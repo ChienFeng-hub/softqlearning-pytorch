@@ -5,7 +5,7 @@ from torch import nn
 from modules.stochastic_policy import StochasticNNPolicy
 from modules.value_function import NNQFunction
 from modules.buffer import ReplayBuffer
-from modules.utils import train_loop
+from modules.train_loop import train_loop
 from modules.kernel import RBF_kernel
 
 
